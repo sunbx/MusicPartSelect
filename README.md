@@ -2,7 +2,7 @@
 音频轨迹选择控件
 添加方式
 allprojects {
-		repositories {
+	repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
