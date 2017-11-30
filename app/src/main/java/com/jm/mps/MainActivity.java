@@ -8,6 +8,8 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import mps.jm.com.musicselectlibrar.MusicPartSelectView;
+
 public class MainActivity extends AppCompatActivity {
     //进度时间格式化
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");

@@ -10,7 +10,7 @@
     android:gravity="center_horizontal"
     tools:context="com.jm.mps.MainActivity">
 
-    <com.jm.mps.MusicPartSelectView
+    <mps.jm.com.musicselectlibrar.MusicPartSelectView
         android:id="@+id/mps_view"
         android:layout_width="match_parent"
         android:layout_height="120dp"
