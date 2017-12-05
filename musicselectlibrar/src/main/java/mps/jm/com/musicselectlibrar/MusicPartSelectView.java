@@ -189,6 +189,7 @@ public class MusicPartSelectView extends FrameLayout implements View.OnTouchList
         this.timeChangeListener = listener;
         this.musicTime = 200;
         this.videoTime = videoTime;
+        removeAllViews();
         init();
 
     }
