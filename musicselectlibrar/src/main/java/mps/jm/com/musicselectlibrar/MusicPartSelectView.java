@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -15,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.nineoldandroids.view.ViewHelper;
+
+import java.io.File;
 
 /**
  * The type Music part select view.
@@ -49,6 +53,8 @@ public class MusicPartSelectView extends FrameLayout implements View.OnTouchList
     private int videoTime = 5;
     //当前拖动到视频的多少秒
     private int currentTime;
+    //音轨图本地路径
+    private String partPath;
 
 
     private OnTimeChangeListener timeChangeListener;
@@ -88,7 +94,7 @@ public class MusicPartSelectView extends FrameLayout implements View.OnTouchList
      */
     public void initPartImg() {
         partImg = new ImageView(getContext());
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.icon_source);
+        Bitmap bitmap = BitmapFactory.decodeFile(partPath);
         parHeight = bitmap.getHeight();
         parWidth = bitmap.getWidth();
         partImg.setImageBitmap(bitmap);
@@ -185,10 +191,10 @@ public class MusicPartSelectView extends FrameLayout implements View.OnTouchList
      * @param listener  the listener 回调
      */
     public void setData(String musicPath, String partPath, int videoTime, OnTimeChangeListener listener) {
-//        musicTime = MediaPlayer.create(getContext(), Uri.fromFile(new File("文件路径"))).getDuration();
+        this.musicTime = MediaPlayer.create(getContext(), Uri.fromFile(new File(musicPath))).getDuration();
         this.timeChangeListener = listener;
-        this.musicTime = 200;
         this.videoTime = videoTime;
+        this.partPath = partPath;
         removeAllViews();
         init();
 
@@ -210,7 +216,7 @@ public class MusicPartSelectView extends FrameLayout implements View.OnTouchList
          * On end.
          *
          * @param currentTime the current time 结束时候的监听
-          */
+         */
         void onEnd(int currentTime);
     }
 
