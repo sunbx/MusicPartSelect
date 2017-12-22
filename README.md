@@ -41,5 +41,5 @@
      * @param videoTime the video time 视频的时长(秒)
      * @param listener  the listener 回调
      */
-     mps_view.setData();
+     public void setData(String musicPath, String partPath, int videoTime, OnTimeChangeListener listener)
  
