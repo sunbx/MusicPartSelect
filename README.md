@@ -1,5 +1,9 @@
 # MusicPartSelect
 这是一款音乐轨迹选择控件
+
+
+![gif](https://github.com/sunbx/MusicPartSelect/blob/master/device-2017-12-22-104421.gif "百度logo")
+
 ****
 
 |Author|JM|
