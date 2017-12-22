@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         MusicPartSelectView mps_view = (MusicPartSelectView) findViewById(R.id.mps_view);
         textView = (TextView) findViewById(R.id.textView);
-        mps_view.setData("", "", 10, new MusicPartSelectView.OnTimeChangeListener() {
+        mps_view.setData("", "", 20, new MusicPartSelectView.OnTimeChangeListener() {
             @Override
             public void onChange(int currentTime) {
                 Log.i("MusicPartSelectView", "time=" + new Date(currentTime * 1000));

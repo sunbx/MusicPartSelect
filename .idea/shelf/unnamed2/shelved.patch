@@ -1,0 +1,102 @@
+Index: app/src/main/java/com/jm/mps/MusicPartSelectView.java
+===================================================================
+--- app/src/main/java/com/jm/mps/MusicPartSelectView.java	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ musicselectlibrary/src/main/java/mps/jm/com/musicselectlibrary/MusicPartSelectView.java	(revision )
+@@ -1,14 +1,11 @@
+-package com.jm.mps;
++package mps.jm.com.musicselectlibrary;
+ 
+ import android.content.Context;
+ import android.content.res.Resources;
+ import android.graphics.Bitmap;
+ import android.graphics.BitmapFactory;
+-import android.media.MediaPlayer;
+-import android.net.Uri;
+ import android.support.annotation.Nullable;
+ import android.util.AttributeSet;
+-import android.util.Log;
+ import android.util.TypedValue;
+ import android.view.Gravity;
+ import android.view.MotionEvent;
+@@ -16,13 +13,9 @@
+ import android.view.WindowManager;
+ import android.widget.FrameLayout;
+ import android.widget.ImageView;
+-import android.widget.LinearLayout;
+-import android.widget.RelativeLayout;
+ 
+ import com.nineoldandroids.view.ViewHelper;
+ 
+-import java.io.File;
+-
+ /**
+  * The type Music part select view.
+  *
+@@ -100,7 +93,7 @@
+         parWidth = bitmap.getWidth();
+         partImg.setImageBitmap(bitmap);
+         addView(partImg);
+-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) partImg.getLayoutParams();
++        LayoutParams params = (LayoutParams) partImg.getLayoutParams();
+         params.height = (int) getRawSize(parHeight);//设置当前控件布局的高度
+         params.width = (int) getRawSize(parWidth);//设置当前控件布局的高度
+         params.gravity = Gravity.CENTER_VERTICAL;
+@@ -116,7 +109,7 @@
+         selectImg = new ImageView(getContext());
+         selectImg.setBackgroundResource(R.mipmap.icon_music_select);
+         addView(selectImg);
+-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) selectImg.getLayoutParams();
++        LayoutParams params = (LayoutParams) selectImg.getLayoutParams();
+         params.height = LayoutParams.WRAP_CONTENT;
+         params.width = LayoutParams.WRAP_CONTENT;//设置当前控件布局的高度
+         params.gravity = Gravity.CENTER;
+@@ -203,7 +196,7 @@
+     /**
+      * The interface On time change listener. 拖动监听
+      */
+-    interface OnTimeChangeListener {
++   public interface OnTimeChangeListener {
+         /**
+          * On change.
+          *
+@@ -224,7 +217,7 @@
+      * Calculate select img width.视频遮罩的宽度
+      */
+     public void calculateSelectImgWidth() {
+-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) selectImg.getLayoutParams();
++        LayoutParams params = (LayoutParams) selectImg.getLayoutParams();
+         params.height = LayoutParams.WRAP_CONTENT;
+         selectImgWidth = (int) getRawSize((parWidth / musicTime * videoTime + 20));
+         params.width = selectImgWidth;
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ app/src/main/res/layout/activity_main.xml	(revision )
+@@ -10,7 +10,7 @@
+     android:gravity="center_horizontal"
+     tools:context="com.jm.mps.MainActivity">
+ 
+-    <com.jm.mps.MusicPartSelectView
++    <mps.jm.com.musicselectlibrary.MusicPartSelectView
+         android:id="@+id/mps_view"
+         android:layout_width="match_parent"
+         android:layout_height="120dp"
+Index: app/src/main/java/com/jm/mps/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/jm/mps/MainActivity.java	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ app/src/main/java/com/jm/mps/MainActivity.java	(revision )
+@@ -8,6 +8,8 @@
+ import java.text.SimpleDateFormat;
+ import java.util.Date;
+ 
++import mps.jm.com.musicselectlibrary.MusicPartSelectView;
++
+ public class MainActivity extends AppCompatActivity {
+     //进度时间格式化
+     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");

@@ -1,0 +1,313 @@
+Index: settings.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- settings.gradle	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ settings.gradle	(revision )
+@@ -1,1 +1,1 @@
+-include ':app'
++include ':app', ':musicselectlibrary'
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ app/src/main/res/layout/activity_main.xml	(revision )
+@@ -10,7 +10,7 @@
+     android:gravity="center_horizontal"
+     tools:context="com.jm.mps.MainActivity">
+ 
+-    <com.jm.mps.MusicPartSelectView
++    <mps.jm.com.musicselectlibrary.MusicPartSelectView
+         android:id="@+id/mps_view"
+         android:layout_width="match_parent"
+         android:layout_height="120dp"
+Index: musicselectlibrary/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- musicselectlibrary/.gitignore	(revision )
++++ musicselectlibrary/.gitignore	(revision )
+@@ -0,0 +1,1 @@
++/build
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ app/build.gradle	(revision )
+@@ -20,12 +20,12 @@
+ }
+ 
+ dependencies {
+-    compile fileTree(dir: 'libs', include: ['*.jar'])
++    compile fileTree(include: ['*.jar'], dir: 'libs')
+     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+         exclude group: 'com.android.support', module: 'support-annotations'
+     })
+     compile 'com.android.support:appcompat-v7:26.+'
+     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+     testCompile 'junit:junit:4.12'
+-    compile 'com.nineoldandroids:library:2.4.0'
++    compile project(':musicselectlibrary')
+ }
+Index: app/src/main/java/com/jm/mps/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/jm/mps/MainActivity.java	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ app/src/main/java/com/jm/mps/MainActivity.java	(revision )
+@@ -8,6 +8,8 @@
+ import java.text.SimpleDateFormat;
+ import java.util.Date;
+ 
++import mps.jm.com.musicselectlibrary.MusicPartSelectView;
++
+ public class MainActivity extends AppCompatActivity {
+     //进度时间格式化
+     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+Index: musicselectlibrary/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- musicselectlibrary/build.gradle	(revision )
++++ musicselectlibrary/build.gradle	(revision )
+@@ -0,0 +1,32 @@
++apply plugin: 'com.android.library'
++
++android {
++    compileSdkVersion 26
++    buildToolsVersion "26.0.2"
++
++    defaultConfig {
++        minSdkVersion 15
++        targetSdkVersion 26
++        versionCode 1
++        versionName "1.0"
++
++        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
++
++    }
++    buildTypes {
++        release {
++            minifyEnabled false
++            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
++        }
++    }
++}
++
++dependencies {
++    compile fileTree(dir: 'libs', include: ['*.jar'])
++    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
++        exclude group: 'com.android.support', module: 'support-annotations'
++    })
++    compile 'com.android.support:appcompat-v7:26.+'
++    testCompile 'junit:junit:4.12'
++    compile 'com.nineoldandroids:library:2.4.0'
++}
+Index: app/src/main/java/com/jm/mps/MusicPartSelectView.java
+===================================================================
+--- app/src/main/java/com/jm/mps/MusicPartSelectView.java	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ musicselectlibrary/src/main/java/mps/jm/com/musicselectlibrary/MusicPartSelectView.java	(revision )
+@@ -1,14 +1,11 @@
+-package com.jm.mps;
++package mps.jm.com.musicselectlibrary;
+ 
+ import android.content.Context;
+ import android.content.res.Resources;
+ import android.graphics.Bitmap;
+ import android.graphics.BitmapFactory;
+-import android.media.MediaPlayer;
+-import android.net.Uri;
+ import android.support.annotation.Nullable;
+ import android.util.AttributeSet;
+-import android.util.Log;
+ import android.util.TypedValue;
+ import android.view.Gravity;
+ import android.view.MotionEvent;
+@@ -16,13 +13,9 @@
+ import android.view.WindowManager;
+ import android.widget.FrameLayout;
+ import android.widget.ImageView;
+-import android.widget.LinearLayout;
+-import android.widget.RelativeLayout;
+ 
+ import com.nineoldandroids.view.ViewHelper;
+ 
+-import java.io.File;
+-
+ /**
+  * The type Music part select view.
+  *
+@@ -203,7 +196,7 @@
+     /**
+      * The interface On time change listener. 拖动监听
+      */
+-    interface OnTimeChangeListener {
++    public interface OnTimeChangeListener {
+         /**
+          * On change.
+          *
+Index: musicselectlibrary/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- musicselectlibrary/src/main/res/values/strings.xml	(revision )
++++ musicselectlibrary/src/main/res/values/strings.xml	(revision )
+@@ -0,0 +1,3 @@
++<resources>
++    <string name="app_name">MusicSelectLibrary</string>
++</resources>
+Index: musicselectlibrary/src/test/java/mps/jm/com/musicselectlibrary/ExampleUnitTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- musicselectlibrary/src/test/java/mps/jm/com/musicselectlibrary/ExampleUnitTest.java	(revision )
++++ musicselectlibrary/src/test/java/mps/jm/com/musicselectlibrary/ExampleUnitTest.java	(revision )
+@@ -0,0 +1,17 @@
++package mps.jm.com.musicselectlibrary;
++
++import org.junit.Test;
++
++import static org.junit.Assert.*;
++
++/**
++ * Example local unit test, which will execute on the development machine (host).
++ *
++ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
++ */
++public class ExampleUnitTest {
++    @Test
++    public void addition_isCorrect() throws Exception {
++        assertEquals(4, 2 + 2);
++    }
++}
+\ No newline at end of file
+Index: musicselectlibrary/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- musicselectlibrary/src/main/AndroidManifest.xml	(revision )
++++ musicselectlibrary/src/main/AndroidManifest.xml	(revision )
+@@ -0,0 +1,13 @@
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++
++          package="mps.jm.com.musicselectlibrary"
++>
++
++    <application android:allowBackup="true"
++                 android:label="@string/app_name"
++                 android:supportsRtl="true"
++    >
++
++    </application>
++
++</manifest>
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ .idea/gradle.xml	(revision )
+@@ -9,6 +9,7 @@
+           <set>
+             <option value="$PROJECT_DIR$" />
+             <option value="$PROJECT_DIR$/app" />
++            <option value="$PROJECT_DIR$/musicselectlibrary" />
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
+\ No newline at end of file
+Index: musicselectlibrary/src/androidTest/java/mps/jm/com/musicselectlibrary/ExampleInstrumentedTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- musicselectlibrary/src/androidTest/java/mps/jm/com/musicselectlibrary/ExampleInstrumentedTest.java	(revision )
++++ musicselectlibrary/src/androidTest/java/mps/jm/com/musicselectlibrary/ExampleInstrumentedTest.java	(revision )
+@@ -0,0 +1,26 @@
++package mps.jm.com.musicselectlibrary;
++
++import android.content.Context;
++import android.support.test.InstrumentationRegistry;
++import android.support.test.runner.AndroidJUnit4;
++
++import org.junit.Test;
++import org.junit.runner.RunWith;
++
++import static org.junit.Assert.*;
++
++/**
++ * Instrumentation test, which will execute on an Android device.
++ *
++ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
++ */
++@RunWith(AndroidJUnit4.class)
++public class ExampleInstrumentedTest {
++    @Test
++    public void useAppContext() throws Exception {
++        // Context of the app under test.
++        Context appContext = InstrumentationRegistry.getTargetContext();
++
++        assertEquals("mps.jm.com.musicselectlibrary.test", appContext.getPackageName());
++    }
++}
+Index: musicselectlibrary/proguard-rules.pro
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- musicselectlibrary/proguard-rules.pro	(revision )
++++ musicselectlibrary/proguard-rules.pro	(revision )
+@@ -0,0 +1,25 @@
++# Add project specific ProGuard rules here.
++# By default, the flags in this file are appended to flags specified
++# in /Users/sunbaixin/Library/Android/sdk/tools/proguard/proguard-android.txt
++# You can edit the include path and order by changing the proguardFiles
++# directive in build.gradle.
++#
++# For more details, see
++#   http://developer.android.com/guide/developing/tools/proguard.html
++
++# Add any project specific keep options here:
++
++# If your project uses WebView with JS, uncomment the following
++# and specify the fully qualified class name to the JavaScript interface
++# class:
++#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
++#   public *;
++#}
++
++# Uncomment this to preserve the line number information for
++# debugging stack traces.
++#-keepattributes SourceFile,LineNumberTable
++
++# If you keep the line number information, uncomment this to
++# hide the original source file name.
++#-renamesourcefileattribute SourceFile
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision dc29ebbc11516f1fbc9b9bf44db1661c945b1664)
++++ .idea/modules.xml	(revision )
+@@ -4,6 +4,7 @@
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/MusicPartSelect.iml" filepath="$PROJECT_DIR$/MusicPartSelect.iml" />
+       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
++      <module fileurl="file://$PROJECT_DIR$/musicselectlibrary/musicselectlibrary.iml" filepath="$PROJECT_DIR$/musicselectlibrary/musicselectlibrary.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file

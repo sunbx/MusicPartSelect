@@ -1,0 +1,29 @@
+<changelist name="unnamed2" date="1512020947548" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/unnamed2/shelved.patch" />
+  <option name="DESCRIPTION" value="" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="musicselectlibrary/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/unnamed2/ic_launcher_round.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="app/src/main/res/mipmap-xxhdpi/icon_source.png" />
+    <option name="AFTER_PATH" value="musicselectlibrary/src/main/res/mipmap-xxhdpi/icon_source.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/unnamed2/icon_source.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="app/src/main/res/mipmap-xxhdpi/icon_wg.png" />
+    <option name="AFTER_PATH" value="musicselectlibrary/src/main/res/mipmap-xxhdpi/icon_wg.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/unnamed2/icon_wg.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="app/src/main/res/mipmap-xxhdpi/icon_music_select.9.png" />
+    <option name="AFTER_PATH" value="musicselectlibrary/src/main/res/mipmap-xxhdpi/icon_music_select.9.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/unnamed2/icon_music_select.9.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="musicselectlibrary/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/unnamed2/ic_launcher.png" />
+  </binary>
+</changelist>
